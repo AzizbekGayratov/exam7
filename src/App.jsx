@@ -67,7 +67,7 @@ const App = () => {
             </li>
           </ul>
         </div>
-        <div className="container py-[39px] flex justify-between">
+        <div className="container py-[35px] flex justify-between">
           <h3 className="font-nicomoji text-[30px] leading-[30px]">
             <Link to="/">GameGeek</Link>
           </h3>
@@ -75,7 +75,7 @@ const App = () => {
             <li className="text-darkGreen font-inter text-[16px] font-medium leading-[19px]">
               <NavLink
                 className={({ isActive }) =>
-                  isActive ? "border-b-2 border-lightGreen" : ""
+                  isActive ? "border-b-2 border-lightGreen font-bold" : ""
                 }
                 to="/"
               >
@@ -85,7 +85,7 @@ const App = () => {
             <li className="text-darkGreen font-inter text-[16px] font-medium leading-[19px]">
               <NavLink
                 className={({ isActive }) =>
-                  isActive ? "border-b-2 border-lightGreen" : ""
+                  isActive ? "border-b-2 border-lightGreen font-bold" : ""
                 }
                 to="/products"
               >
@@ -110,7 +110,7 @@ const App = () => {
       </Routes>
       <footer className="bg-darkGreen">
         <div className="container">
-          <div className="flex justify-between pt-[70px] pb-[56px] border-b-2 border-white border-opacity-50 px-[25px]">
+          <div className="flex justify-between pt-[70px] pb-[56px] border-b-2 border-white border-opacity-50 px-[40px]">
             <div className="w-[190px]">
               <h3 className="font-nicomoji  text-white text-[30px] leading-[30px] mb-[15px]">
                 Game Geek
@@ -199,7 +199,7 @@ const App = () => {
               </li>
             </ul>
           </div>
-          <ul className="py-[32px] px-[25px] flex items-center justify-between">
+          <ul className="py-[32px] px-[40px] flex items-center justify-between">
             <li className="cursor-pointer">
               <Link
                 className="font-nicomoji text-white text-[30px] leading-[30px]"

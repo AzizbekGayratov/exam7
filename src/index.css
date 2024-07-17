@@ -5,7 +5,7 @@
 @layer base {
     @font-face {
         font-family: "Nico Moji";
-        src: url("../public/fonts/Nico-Moji.ttf.woff") format("woff2");
+        src: url("/fonts/Nico-Moji.ttf.woff") format("woff2");
         font-weight: normal;
         font-style: normal;
     }
@@ -42,6 +42,24 @@
         font-size: 22px;
         font-weight: 400;
         line-height: 28px;
+        letter-spacing: 0%;
+        text-align: left;
+    }
+
+    .hero_text {
+        background: linear-gradient(90.00deg, rgb(235, 226, 244), rgb(20, 255, 0));
+        -webkit-background-clip:
+            text;
+        -webkit-text-fill-color:
+            transparent;
+        background-clip:
+            text;
+        /* text-fill-color: */
+        /* transparent; */
+        font-family: Hammersmith One;
+        font-size: 60px;
+        font-weight: 400;
+        line-height: 75px;
         letter-spacing: 0%;
         text-align: left;
     }
