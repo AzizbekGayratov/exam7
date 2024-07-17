@@ -102,9 +102,7 @@ const Products = () => {
       }
     };
 
-    setTimeout(() => {
-      fetchProducts();
-    }, 2000);
+    fetchProducts();
 
     return () => {
       console.log("clean up");
