@@ -51,13 +51,30 @@ const App = () => {
               </p>
             </li>
             <li className="flex gap-[45px] items-center">
-              <div className="flex gap-[7px] items-center">
-                <MdKeyboardArrowDown className="text-white" />
-                <span className="font-inter text-white text-[17px] leading-[20px] font-medium">
-                  English
-                </span>
-                <img src={usaIcon} alt="svg" />
+              <div className="dropdown dropdown-hover">
+                <div
+                  tabIndex={0}
+                  className="flex gap-[7px] items-center cursor-pointer"
+                >
+                  <MdKeyboardArrowDown className="text-white" />
+                  <span className="font-inter text-white text-[17px] leading-[20px] font-medium">
+                    English
+                  </span>
+                  <img src={usaIcon} alt="svg" />
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu bg-slimGreen rounded-box z-[1] w-36 p-2 shadow"
+                >
+                  <li>
+                    <a>English (Eng)</a>
+                  </li>
+                  <li>
+                    <a>Русский (Рус)</a>
+                  </li>
+                </ul>
               </div>
+
               <div className="flex gap-[7px] items-center">
                 <TbWorld className="text-white w-[20px] h-[20px]" />
                 <span className="font-inter text-white text-[17px] leading-[20px] font-medium">
@@ -67,7 +84,7 @@ const App = () => {
             </li>
           </ul>
         </div>
-        <div className="container py-[35px] flex justify-between">
+        <div className="container py-[30px] flex justify-between px-[20px]">
           <h3 className="font-nicomoji text-[30px] leading-[30px]">
             <Link to="/">GameGeek</Link>
           </h3>
