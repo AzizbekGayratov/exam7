@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/products";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+
+// store
+import { useDispatch } from "react-redux";
+import { addToCart as addToCartAction } from "../store/productsSlice.js";
 
 // icons
 import leftSvg from "../assets/SinglePageLeftArrow.svg";
@@ -19,6 +25,7 @@ const SingleProduct = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [quantity, setQuantity] = useState(1);
@@ -26,6 +33,8 @@ const SingleProduct = () => {
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [addingToCart, setAddingToCart] = React.useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -43,6 +52,20 @@ const SingleProduct = () => {
 
     fetchProduct();
   }, []);
+
+  const addToCart = (product) => {
+    console.log(product);
+    try {
+      setAddingToCart(true);
+      dispatch(addToCartAction(product));
+      toast.success("Product added to cart");
+    } catch (error) {
+      console.error(error.message);
+      toast.error(error.message);
+    } finally {
+      setAddingToCart(false);
+    }
+  };
 
   return (
     <>
@@ -180,9 +203,24 @@ const SingleProduct = () => {
                         </p>
                       </div>
                       <div className="flex items-center justify-between">
-                        <button className="flex items-center gap-[12px] px-[142px] py-[16px] bg-green rounded-[10px] font-inter text-[22px] font-bold leading-[27px] text-white">
-                          <LuShoppingCart className="w-[24px] h-[24px]" /> Add
-                          to cart
+                        <button
+                          onClick={() => {
+                            Swal.fire({
+                              icon: "question",
+                              title: "Are you sure?",
+                              text: "Do you want to add this item to your cart?",
+                              showCancelButton: true,
+                              confirmButtonText: "Yes",
+                            }).then((result) => {
+                              if (result.isConfirmed) {
+                                addToCart(product);
+                              }
+                            });
+                          }}
+                          className="flex items-center gap-[12px] px-[142px] py-[16px] bg-green rounded-[10px] font-inter text-[22px] font-bold leading-[27px] text-white"
+                        >
+                          <LuShoppingCart className="w-[24px] h-[24px]" />{" "}
+                          {addingToCart ? "Adding..." : "Add to cart"}
                         </button>
                         <img
                           src={LikeSvg}

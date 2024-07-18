@@ -1,9 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
+// store
+import { useDispatch } from "react-redux";
+import { addToCart as addToCartAction } from "../../store/productsSlice.js";
+
 // icons
 import { LuShoppingCart } from "react-icons/lu";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const Card = ({ product }) => {
+  const [addingToCart, setAddingToCart] = React.useState(false);
+
+  const dispatch = useDispatch();
+
+  const addToCart = (product) => {
+    try {
+      setAddingToCart(true);
+      dispatch(addToCartAction(product));
+      toast.success("Product added to cart");
+    } catch (error) {
+      console.error(error.message);
+      toast.error(error.message);
+    } finally {
+      setAddingToCart(false);
+    }
+  };
+
   return (
     <li className="w-[300px]" key={product.id}>
       <img
@@ -33,8 +57,24 @@ const Card = ({ product }) => {
       <p className="font-readexPro text-[22px] leading-[28px] font-semibold mb-[22px]">
         ${product.price}
       </p>
-      <button className="flex items-center gap-[10px] px-[34px] text-white bg-green py-[16px] rounded-[10px] font-inter font-bold text-[22px] leading-[27px]">
-        <LuShoppingCart className="text-[26px]" /> Add to Cart
+      <button
+        onClick={() => {
+          Swal.fire({
+            icon: "question",
+            title: "Are you sure?",
+            text: "You want to add this product to your cart?",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              addToCart(product);
+            }
+          });
+        }}
+        className="flex items-center gap-[10px] px-[34px] text-white bg-green py-[16px] rounded-[10px] font-inter font-bold text-[22px] leading-[27px]"
+      >
+        <LuShoppingCart className="text-[26px]" />{" "}
+        {addingToCart ? "Adding..." : "Add to Cart"}
       </button>
     </li>
   );

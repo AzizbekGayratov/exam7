@@ -7,7 +7,6 @@ export default {
         inter: ["Inter", "sans-serif"],
         hammersmithOne: ["Hammersmith One", "sans-serif"],
         readexPro: ["Readex Pro", "sans-serif"],
-        fredoka: ["Fredoka", "sans-serif"],
         nicomoji: ["Nico Moji", "sans-serif"],
       },
       colors: {

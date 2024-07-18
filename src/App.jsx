@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+// store
+import { useDispatch, useSelector } from "react-redux";
+import { setCart } from "./store/productsSlice.js";
 
 // components
 import {
@@ -24,8 +28,17 @@ import FooterIcon from "./assets/footer-bottom.svg";
 
 // react-router-dom
 import { Routes, Route, NavLink, Link } from "react-router-dom";
+import Checkout from "./components/checkout/checkout.jsx";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const { cartCount } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("examCart")) || [];
+    dispatch(setCart(cart));
+  }, []);
+
   return (
     <>
       <header>
@@ -114,7 +127,12 @@ const App = () => {
             <LuSearch className="text-darkGreen w-[20px] h-[20px] cursor-pointer" />
             <LuUser className="text-darkGreen w-[20px] h-[20px] cursor-pointer" />
             <Link to="/cart">
-              <LuShoppingCart className="text-darkGreen w-[20px] h-[20px]" />
+              <div className="relative">
+                <LuShoppingCart className="text-darkGreen w-[20px] h-[20px]" />
+                <span className="absolute -top-2 -right-2 w-[16px] h-[16px] rounded-full bg-lightGreen flex justify-center items-center text-[10px] text-white">
+                  {cartCount}
+                </span>
+              </div>
             </Link>
           </div>
         </div>
@@ -124,6 +142,7 @@ const App = () => {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<SingleProduct />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       <footer className="bg-darkGreen">
         <div className="container">
