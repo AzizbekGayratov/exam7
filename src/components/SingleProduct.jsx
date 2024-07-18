@@ -21,7 +21,7 @@ import star3 from "../assets/3stars.svg";
 import star4 from "../assets/4stars.svg";
 import star5 from "../assets/5stars.svg";
 
-const SingleProduct = () => {
+const SingleProduct = ({ setSearch, setShowSearch }) => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
 
@@ -37,6 +37,9 @@ const SingleProduct = () => {
   const [addingToCart, setAddingToCart] = React.useState(false);
 
   useEffect(() => {
+    setSearch("");
+    setShowSearch(false);
+
     const fetchProduct = async () => {
       setError(null);
       try {

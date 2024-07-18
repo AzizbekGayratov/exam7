@@ -10,6 +10,8 @@ const Feed = ({
   setCurrentPage,
   showPagination,
   searchResults,
+  setSearch,
+  setShowSearch,
 }) => {
   return (
     <>
@@ -38,7 +40,12 @@ const Feed = ({
         <>
           <ul className="grid grid-cols-[repeat(auto-fill,_minmax(230px,_1fr))] gap-x-[36px] gap-y-[68px]">
             {products.map((product) => (
-              <Card key={product.id} product={product} />
+              <Card
+                key={product.id}
+                product={product}
+                setSearch={setSearch}
+                setShowSearch={setShowSearch}
+              />
             ))}
           </ul>
           <ul className="mt-[100px] block text-center">

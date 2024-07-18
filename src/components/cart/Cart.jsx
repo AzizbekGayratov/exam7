@@ -8,11 +8,14 @@ import { useSelector } from "react-redux";
 import CartList from "./CartList";
 import Swal from "sweetalert2";
 
-const Cart = () => {
+const Cart = ({ setSearch, setShowSearch }) => {
   const cart = useSelector((state) => state.products.cart);
   const [totalPrice, setTotalPrice] = React.useState(0);
 
   useEffect(() => {
+    setSearch("");
+    setShowSearch(false);
+
     let total = 0;
     cart.forEach((item) => {
       total += item.price;

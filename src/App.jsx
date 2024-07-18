@@ -144,7 +144,7 @@ const App = () => {
           </ul>
           <div className="flex items-center gap-[44px]">
             {showSearch ? (
-              <label className="input input-bordered flex items-center gap-2 px-[10px] h-[35px]">
+              <label className="input input-bordered flex items-center gap-2 px-[6px] h-[28px]">
                 <input
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -182,9 +182,29 @@ const App = () => {
       </header>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products search={search} />} />
-        <Route path="/products/:id" element={<SingleProduct />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route
+          path="/products"
+          element={
+            <Products
+              search={search}
+              setSearch={setSearch}
+              setShowSearch={setShowSearch}
+            />
+          }
+        />
+        <Route
+          path="/products/:id"
+          element={
+            <SingleProduct
+              setSearch={setSearch}
+              setShowSearch={setShowSearch}
+            />
+          }
+        />
+        <Route
+          path="/cart"
+          element={<Cart setSearch={setSearch} setShowSearch={setShowSearch} />}
+        />
         <Route path="/checkout" element={<Checkout />} />
       </Routes>
       <footer className="bg-darkGreen">

@@ -10,7 +10,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
-const Card = ({ product }) => {
+const Card = ({ product, setSearch, setShowSearch }) => {
   const [addingToCart, setAddingToCart] = React.useState(false);
 
   const dispatch = useDispatch();
@@ -19,6 +19,9 @@ const Card = ({ product }) => {
     try {
       setAddingToCart(true);
       dispatch(addToCartAction(product));
+
+      setSearch("");
+      setShowSearch(false);
       toast.success("Product added to cart");
     } catch (error) {
       console.error(error.message);

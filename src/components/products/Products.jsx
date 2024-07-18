@@ -12,7 +12,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../store/productsSlice.js";
 
-const Products = ({ search }) => {
+const Products = ({ search, setSearch, setShowSearch }) => {
   const products = useSelector((state) => state.products.products);
   const dispatch = useDispatch();
 
@@ -119,6 +119,7 @@ const Products = ({ search }) => {
         product.name.toLowerCase().includes(search.toLowerCase()) ||
         product.brand_name.toLowerCase().includes(search.toLowerCase()) ||
         product.description.toLowerCase().includes(search.toLowerCase())
+      // product.price.toString().toLowerCase().includes(search.toLowerCase())
     );
 
     setSearchResults(filteredResults.reverse());
@@ -302,6 +303,8 @@ const Products = ({ search }) => {
             setCurrentPage={setCurrentPage}
             showPagination={showPagination}
             searchResults={searchResults}
+            setSearch={setSearch}
+            setShowSearch={setShowSearch}
           />
         </main>
       </div>
