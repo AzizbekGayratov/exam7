@@ -104,6 +104,7 @@ const Cart = () => {
                   Total <span>${totalPrice}</span>
                 </p>
                 <button
+                  disabled={cart.length === 0}
                   onClick={() => {
                     Swal.fire({
                       icon: "question",
