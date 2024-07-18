@@ -12,14 +12,15 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../store/productsSlice.js";
 
-const Products = () => {
+const Products = ({ search }) => {
   const products = useSelector((state) => state.products.products);
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // const [addingToCart, setAddingToCart] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  // search searchResults setSearchResults
 
   const [brands, setBrands] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -111,6 +112,17 @@ const Products = () => {
       controller.abort();
     };
   }, [selectedBrand, selectedColor, sortedPrice, currentPage]);
+
+  useEffect(() => {
+    const filteredResults = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(search.toLowerCase()) ||
+        product.brand_name.toLowerCase().includes(search.toLowerCase()) ||
+        product.description.toLowerCase().includes(search.toLowerCase())
+    );
+
+    setSearchResults(filteredResults.reverse());
+  }, [products, search]);
 
   const clearFilters = () => {
     setSelectedBrand("");
@@ -241,7 +253,7 @@ const Products = () => {
                       className="font-bold text-[19px] leading-[24px] mb-[6px]"
                       htmlFor="upgradePrice"
                     >
-                      Low to high
+                      Qimmat
                     </label>
                   </li>
                   <li className="flex items-center gap-[16px]">
@@ -258,7 +270,7 @@ const Products = () => {
                       className="font-bold text-[19px] leading-[24px]"
                       htmlFor="downgradePrice"
                     >
-                      High to low
+                      Arzon
                     </label>
                   </li>
                 </ul>
@@ -282,13 +294,14 @@ const Products = () => {
         </aside>
         <main>
           <Feed
-            products={products}
+            products={searchResults}
             onLoad={isLoading}
             error={error}
             totalPages={totalPages}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             showPagination={showPagination}
+            searchResults={searchResults}
           />
         </main>
       </div>

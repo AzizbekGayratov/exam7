@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // store
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +25,7 @@ import Facebook from "./assets/facebook.svg";
 import Instagram from "./assets/insta.svg";
 import IN from "./assets/IN.svg";
 import FooterIcon from "./assets/footer-bottom.svg";
+import { IoCloseSharp } from "react-icons/io5";
 
 // react-router-dom
 import { Routes, Route, NavLink, Link } from "react-router-dom";
@@ -34,70 +35,88 @@ const App = () => {
   const dispatch = useDispatch();
   const { cartCount } = useSelector((state) => state.products);
 
+  const [showAdvertisement, setShowAdvertisement] = useState(true);
+  const [search, setSearch] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
+
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("examCart")) || [];
     dispatch(setCart(cart));
   }, []);
 
+  // har safar search qilinguncha products'larni turgan page'dan topilgan datalar qaytadi
+
   return (
     <>
-      <header className="fixed -top-0 w-full z-10 bg-white">
-        <div className="bg-darkGreen py-[19px]">
-          <ul className="container flex justify-between items-center">
-            <li className="flex gap-[40px]">
-              <h2 className="font-nicomoji text-white text-[30px] leading-[30px]">
-                <Link to="/">GG</Link>
-              </h2>
-              <a
-                href="tel:+123456789"
-                className="text-white flex items-center gap-[14px]"
-              >
-                <FiPhoneCall className="text-[18px] font-semibold" />
-                +4904-049-950
-              </a>
-            </li>
-            <li className="cursor-pointer">
-              <p className="text-white flex gap-[25px] text-[14px] leading-[17px]">
-                Get 50% Off on the Selected items
-                <span className="inline-block h-[22px] w-[2px] bg-lightGreen"></span>{" "}
-                Shop now
-              </p>
-            </li>
-            <li className="flex gap-[45px] items-center">
-              <div className="dropdown dropdown-hover">
-                <div
-                  tabIndex={0}
-                  className="flex gap-[7px] items-center cursor-pointer"
+      <header className=" bg-white">
+        {showAdvertisement && (
+          <div className="fixed -top-0 w-full z-10 bg-darkGreen py-[19px]">
+            <ul className="container flex justify-between items-center">
+              <li className="flex gap-[40px]">
+                <h2 className="font-nicomoji text-white text-[30px] leading-[30px]">
+                  <Link to="/">GG</Link>
+                </h2>
+                <a
+                  href="tel:+123456789"
+                  className="text-white flex items-center gap-[14px]"
                 >
-                  <MdKeyboardArrowDown className="text-white" />
-                  <span className="font-inter text-white text-[17px] leading-[20px] font-medium">
-                    English
-                  </span>
-                  <img src={usaIcon} alt="svg" />
+                  <FiPhoneCall className="text-[18px] font-semibold" />
+                  +4904-049-950
+                </a>
+              </li>
+              <li className="cursor-pointer">
+                <p className="text-white flex gap-[25px] text-[14px] leading-[17px]">
+                  Get 50% Off on the Selected items
+                  <span className="inline-block h-[22px] w-[2px] bg-lightGreen"></span>{" "}
+                  Shop now
+                </p>
+              </li>
+              <li className="flex gap-[45px] items-center">
+                <div className="dropdown dropdown-hover">
+                  <div
+                    tabIndex={0}
+                    className="flex gap-[7px] items-center cursor-pointer"
+                  >
+                    <MdKeyboardArrowDown className="text-white" />
+                    <span className="font-inter text-white text-[17px] leading-[20px] font-medium">
+                      English
+                    </span>
+                    <img src={usaIcon} alt="svg" />
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content menu bg-slimGreen rounded-box z-[1] w-36 p-2 shadow"
+                  >
+                    <li>
+                      <a>English (Eng)</a>
+                    </li>
+                    <li>
+                      <a>Русский (Рус)</a>
+                    </li>
+                  </ul>
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu bg-slimGreen rounded-box z-[1] w-36 p-2 shadow"
-                >
-                  <li>
-                    <a>English (Eng)</a>
-                  </li>
-                  <li>
-                    <a>Русский (Рус)</a>
-                  </li>
-                </ul>
-              </div>
 
-              <div className="flex gap-[7px] items-center">
-                <TbWorld className="text-white w-[20px] h-[20px]" />
-                <span className="font-inter text-white text-[17px] leading-[20px] font-medium">
-                  Location
-                </span>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div className="container py-[30px] flex justify-between border-b-[2px] px-[20px]">
+                <div className="flex gap-[7px] items-center">
+                  <TbWorld className="text-white w-[20px] h-[20px]" />
+                  <span className="font-inter text-white text-[17px] leading-[20px] font-medium">
+                    Location
+                  </span>
+                </div>
+                <IoCloseSharp
+                  onClick={() => setShowAdvertisement(false)}
+                  className="text-white cursor-pointer text-[24px] inline"
+                />
+              </li>
+            </ul>
+          </div>
+        )}
+        <div
+          className={
+            showAdvertisement
+              ? "container mt-[68px] py-[30px] flex justify-between border-b-[2px] px-[20px]"
+              : "container py-[30px] flex justify-between border-b-[2px] px-[20px]"
+          }
+        >
           <h3 className="font-nicomoji text-[30px] leading-[30px]">
             <Link to="/">GameGeek</Link>
           </h3>
@@ -124,7 +143,29 @@ const App = () => {
             </li>
           </ul>
           <div className="flex items-center gap-[44px]">
-            <LuSearch className="text-darkGreen w-[20px] h-[20px] cursor-pointer" />
+            {showSearch ? (
+              <label className="input input-bordered flex items-center gap-2 px-[10px] h-[35px]">
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  type="text"
+                  className="grow"
+                  placeholder="Search"
+                />
+                <IoCloseSharp
+                  onClick={() => {
+                    setSearch("");
+                    setShowSearch(false);
+                  }}
+                  className="text-darkGreen text-[22px] cursor-pointer"
+                />
+              </label>
+            ) : (
+              <LuSearch
+                className="text-darkGreen w-[20px] h-[20px] cursor-pointer"
+                onClick={() => setShowSearch(true)}
+              />
+            )}
             <LuUser className="text-darkGreen w-[20px] h-[20px] cursor-pointer" />
             <Link to="/cart">
               <div className="relative">
@@ -141,7 +182,7 @@ const App = () => {
       </header>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
+        <Route path="/products" element={<Products search={search} />} />
         <Route path="/products/:id" element={<SingleProduct />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { deleteProductFromCart } from "../../store/productsSlice";
 import Swal from "sweetalert2";

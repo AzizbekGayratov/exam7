@@ -9,6 +9,7 @@ const Feed = ({
   currentPage,
   setCurrentPage,
   showPagination,
+  searchResults,
 }) => {
   return (
     <>
@@ -41,7 +42,7 @@ const Feed = ({
             ))}
           </ul>
           <ul className="mt-[100px] block text-center">
-            {showPagination && (
+            {showPagination && searchResults.length !== 0 && (
               <div className="join">
                 {totalPages.map((page) => (
                   <button
