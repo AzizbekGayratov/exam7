@@ -19,7 +19,7 @@ const Products = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [addingToCart, setAddingToCart] = useState(false);
+  // const [addingToCart, setAddingToCart] = useState(false);
 
   const [brands, setBrands] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -104,7 +104,7 @@ const Products = () => {
       }
     };
 
-    fetchProducts();
+    setTimeout(fetchProducts, 1000);
 
     return () => {
       console.log("clean up");

@@ -41,7 +41,7 @@ const App = () => {
 
   return (
     <>
-      <header>
+      <header className="fixed -top-0 w-full z-10 bg-white">
         <div className="bg-darkGreen py-[19px]">
           <ul className="container flex justify-between items-center">
             <li className="flex gap-[40px]">
@@ -97,7 +97,7 @@ const App = () => {
             </li>
           </ul>
         </div>
-        <div className="container py-[30px] flex justify-between px-[20px]">
+        <div className="container py-[30px] flex justify-between border-b-[2px] px-[20px]">
           <h3 className="font-nicomoji text-[30px] leading-[30px]">
             <Link to="/">GameGeek</Link>
           </h3>
@@ -129,9 +129,11 @@ const App = () => {
             <Link to="/cart">
               <div className="relative">
                 <LuShoppingCart className="text-darkGreen w-[20px] h-[20px]" />
-                <span className="absolute -top-2 -right-2 w-[16px] h-[16px] rounded-full bg-lightGreen flex justify-center items-center text-[10px] text-white">
-                  {cartCount}
-                </span>
+                {cartCount !== 0 && (
+                  <span className="absolute -top-2 -right-2 w-[16px] h-[16px] rounded-full bg-lightGreen flex justify-center items-center text-[10px] text-white">
+                    {cartCount}
+                  </span>
+                )}
               </div>
             </Link>
           </div>

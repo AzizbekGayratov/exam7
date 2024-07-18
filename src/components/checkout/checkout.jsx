@@ -12,12 +12,12 @@ const Checkout = () => {
     dispatch(proccessToCheckout());
   }, []);
   return (
-    <main className="main_content">
+    <main className="main__content">
       <div className="container">
         <div className="max-w-[690px] mx-auto py-[35px]">
           <img src={CheckSvg} alt="icon" className="mx-auto mb-[75px]" />
           <h3 className="font-hammersmithOne text-[48px] leading-[60px] text-center">
-            Your Order is Confimed!
+            Your Order is Confirmed!
           </h3>
           <div className="flex justify-center gap-[45px] items-center mt-[85px]">
             <button
