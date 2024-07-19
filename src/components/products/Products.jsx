@@ -70,16 +70,9 @@ const Products = ({ search, setSearch, setShowSearch }) => {
       if (selectedColor) {
         params.push(`color_options_like=${encodeURIComponent(selectedColor)}`);
       }
-      if (sortedPrice) {
-        params.push(
-          `_sort=price&_order=${encodeURIComponent(
-            sortedPrice
-          )}&_limit=${pageCount}&_page=${currentPage}`
-        );
-      }
       if (params.length > 0) {
         Query += `?${params.join("&")}`;
-        setShowPagination(false);
+        setShowPagination(true);
       } else {
         Query += `?_limit=${pageCount}&_page=${currentPage}`;
         setShowPagination(true);
@@ -91,6 +84,16 @@ const Products = ({ search, setSearch, setShowSearch }) => {
         const response = await api.get(Query, {
           signal,
         });
+
+        if (sortedPrice) {
+          if (sortedPrice === "asc") {
+            let data = response.data.sort((a, b) => a.price - b.price);
+            dispatch(setProducts(data));
+          } else if (sortedPrice === "desc") {
+            let data = response.data.sort((a, b) => b.price - a.price);
+            dispatch(setProducts(data));
+          }
+        }
 
         dispatch(setProducts(response.data));
       } catch (error) {
@@ -125,6 +128,7 @@ const Products = ({ search, setSearch, setShowSearch }) => {
     setSearchResults(filteredResults.reverse());
   }, [products, search]);
 
+  console.log(sortedPrice);
   const clearFilters = () => {
     setSelectedBrand("");
     setSelectedColor("");
